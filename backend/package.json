@@ -1,0 +1,19 @@
+{
+  "name": "packt",
+  "version": "0.0.1",
+  "description": "Packt backend using cf workers.",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "wrangler dev",
+    "deploy": "wrangler publish"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^1.0.0",
+    "ajv": "^8.17.1",
+    "typescript": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7"
+  }
+}

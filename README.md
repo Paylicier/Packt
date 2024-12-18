@@ -1,2 +1,2 @@
 # Packt
-a simple shipment viewer
+readme coming soon
