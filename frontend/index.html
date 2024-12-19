@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Packt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              coffee: {
+                light: "#D4BBA7",
+                DEFAULT: "#A67B5B",
+                dark: "#744C24",
+              },
+              black: "#444444",
+            },
+            fontFamily: {
+              montserrat: ["Montserrat", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #a67b5b;
+        border-radius: 4px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #744c24;
+      }
+
+      .dark .custom-scrollbar::-webkit-scrollbar-track {
+        background: #333333;
+      }
+
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #a67b5b;
+      }
+
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #744c24;
+      }
+
+      .carrier-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        padding: 8px;
+      }
+
+      .status-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-bottom-left-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+      }
+
+      *:not(i):not(select):not(option) {
+        color: #444444;
+      }
+
+      .dark *:not(i):not(select):not(option) {
+        color: #d4bba7;
+      }
+
+      select,
+      option {
+        color: #444444;
+      }
+
+      .dark select,
+      .dark option,
+      .dark select option {
+        color: #d4bba7;
+        background-color: #374151;
+      }
+
+      .dark select option:checked {
+        background-color: #4b5563;
+      }
+
+      .dark select option:hover {
+        background-color: #4b5563;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          transform: scale(0.95);
+          opacity: 0;
+        }
+
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes scaleOut {
+        from {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        to {
+          transform: scale(0.95);
+          opacity: 0;
+        }
+      }
+
+      .animate-slide-in {
+        animation: slideIn 0.3s ease-out;
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      .animate-scale-in {
+        animation: scaleIn 0.3s ease-out;
+      }
+
+      .animate-scale-out {
+        animation: scaleOut 0.3s ease-out;
+      }
+
+      .toast-container {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .toast {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      .dark .toast {
+        background-color: #1f2937;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-coffee-light to-coffee dark:from-gray-900 dark:to-gray-800 min-h-screen p-4 font-montserrat"
+  >
+    <div class="flex justify-center items-center mb-8 mt-4">
+      <img src="logo.svg" alt="Packt Logo" class="w-96 mr-2 drop-shadow-xl" />
+    </div>
+    <div
+      class="max-w-5xl mx-auto bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-4 sm:p-6"
+    >
+      <div
+        id="packageContainer"
+        class="custom-scrollbar max-h-[80vh] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      >
+        <div
+          class="relative h-full bg-coffee-light/50 dark:bg-gray-700/50 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-all duration-300 min-h-[200px]"
+          id="addPackageCard"
+        >
+          <div class="flex items-center justify-center h-full">
+            <div class="text-center">
+              <i
+                class="fas fa-plus-circle text-4xl text-coffee dark:text-coffee-light mb-2"
+              ></i>
+              <p class="text-coffee-dark dark:text-coffee-light font-semibold">
+                Add New Package
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-5xl mx-auto mt-8 p-4">
+      <div
+        class="bg-white/80 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg p-6"
+      >
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="text-sm text-coffee-dark dark:text-coffee-light">
+            <p class="text-coffee-dark dark:text-coffee-light">
+              © 2024 Packt by Paylicier
+            </p>
+            <p class="mt-1 text-coffee-dark dark:text-coffee-light">
+              All carrier logos and trademarks belong to their respective
+              owners.
+            </p>
+          </div>
+          <div class="flex items-center gap-4">
+            <a
+              href="https://github.com/Paylicier/packt"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-coffee-dark dark:text-coffee-light hover:opacity-80 transition-opacity"
+            >
+              <i class="fab fa-github text-2xl"></i>
+            </a>
+            <button
+              id="themeToggle"
+              class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity"
+            >
+              <i class="fas fa-moon mr-2"></i>
+              <span class="hidden sm:inline">Theme</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-coffee/20 dark:border-gray-600">
+          <div
+            class="flex flex-wrap justify-center gap-4 text-sm text-coffee-dark dark:text-coffee-light"
+          >
+            <a href="/api/list" class="hover:underline">API</a>
+            <span>•</span>
+            <a href="mailto:payl@duck.com" class="hover:underline">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="addPackageModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center"
+    >
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-96">
+        <h2 class="text-xl font-bold mb-4 dark:text-white">Add New Package</h2>
+        <form id="addPackageForm" class="space-y-4">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="friendlyName"
+              class="mt-1 w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-coffee dark:focus:border-coffee-light focus:ring-coffee dark:focus:ring-coffee-light transition-colors duration-200"
+              maxlength="30"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >Carrier</label
+            >
+            <select
+              id="carrier"
+              class="mt-1 w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-coffee dark:focus:border-coffee-light focus:ring-coffee dark:focus:ring-coffee-light transition-colors duration-200 select-text"
+              required
+            ></select>
+          </div>
+          <div id="additionalFields" class="space-y-4"></div>
+          <div class="flex justify-end space-x-3">
+            <button
+              type="button"
+              id="cancelAdd"
+              class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 bg-coffee text-white rounded-md hover:bg-coffee-dark transition-colors duration-200"
+            >
+              Add Package
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      id="packageDetailsModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center"
+    >
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-96 max-w-[90%]">
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="text-xl font-bold dark:text-white">Package Details</h2>
+          <div class="flex gap-2">
+            <button
+              id="sharePackageBtn"
+              class="text-coffee hover:text-coffee-dark dark:text-coffee-light dark:hover:text-coffee"
+            >
+              <i class="fas fa-share-alt"></i>
+            </button>
+            <button
+              id="editPackageBtn"
+              class="text-blue-500 hover:text-blue-700 dark:text-blue-400"
+            >
+              <i class="fas fa-edit"></i>
+            </button>
+            <button
+              id="deletePackageBtn"
+              class="text-red-500 hover:text-red-700 dark:text-red-400"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+            <button
+              id="closeDetailsBtn"
+              class="text-gray-500 hover:text-gray-700 dark:text-gray-400"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div id="packageDetailsContent" class="space-y-4"></div>
+      </div>
+    </div>
+    <div
+      id="deleteConfirmModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center"
+    >
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-80 max-w-[90%]">
+        <h3 class="text-lg font-semibold mb-4 dark:text-white">
+          Confirm Deletion
+        </h3>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+          Are you sure you want to delete this package?
+        </p>
+        <div class="flex justify-end gap-3">
+          <button
+            id="cancelDeleteBtn"
+            class="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirmDeleteBtn"
+            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const API_BASE_URL =
+        "https://crispy-potato-r4grqvq7wrg63xwgv-8787.app.github.dev";
+
+      const STORAGE_KEY = "packt_packages";
+
+      function sanitizeHTML(text) {
+        if (!text) return "";
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function sanitizeUrl(url) {
+        try {
+          if (url.startsWith("/") || url.includes(".")) {
+            return url;
+          }
+          const parsed = new URL(url);
+
+          if (
+            ["http:", "https:", ""].includes(parsed.protocol) ||
+            parsed.host === ""
+          ) {
+            return parsed.toString();
+          }
+          return parsed.toString();
+        } catch {
+          return "";
+        }
+      }
+
+      function savePackagesToLocalStorage() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(packages));
+      }
+
+      function loadPackagesFromLocalStorage() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          packages = JSON.parse(stored);
+        }
+      }
+
+      let packages = [];
+
+      loadPackagesFromLocalStorage();
+
+      const apiService = {
+        async getTrackingSources() {
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/list`);
+            if (!response.ok)
+              throw new Error("Failed to fetch tracking sources");
+            return await response.json();
+          } catch (error) {
+            console.error("Error fetching tracking sources:", error);
+            showToast("Failed to fetch tracking sources", "error");
+            return [];
+          }
+        },
+
+        async getTrackingInfo(source, params) {
+          try {
+            const queryParams = new URLSearchParams({ source, ...params });
+            const response = await fetch(
+              `${API_BASE_URL}/api/get?${queryParams}`
+            );
+            if (!response.ok) throw new Error("Failed to fetch tracking info");
+            return await response.json();
+          } catch (error) {
+            console.error("Error fetching tracking info:", error);
+            showToast("Failed to fetch tracking information", "error");
+            return null;
+          }
+        },
+      };
+      const carrierLogos = {};
+      (async function initializeCarrierLogos() {
+        const sources = await apiService.getTrackingSources();
+        sources.forEach((source) => {
+          carrierLogos[source.name] = source.icon;
+        });
+      })();
+      const statusColors = {
+        processing: "bg-yellow-500",
+        transit: "bg-blue-500",
+        delivery: "bg-orange-500",
+        delivered: "bg-green-500",
+      };
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleString();
+      }
+      async function updateFormFields() {
+        const sources = await apiService.getTrackingSources();
+        const carrierSelect = document.getElementById("carrier");
+        const additionalFieldsContainer =
+          document.getElementById("additionalFields");
+        carrierSelect.innerHTML = `
+        <option value="">Select a carrier</option>
+        ${sources
+          .map(
+            (source) => `
+            <option value="${source.name}" 
+                    data-required-fields='${JSON.stringify(
+                      source.requiredFields
+                    )}'
+                    data-icon="${source.icon}">
+                ${source.name.toUpperCase()}
+            </option>
+        `
+          )
+          .join("")}
+    `;
+        carrierSelect.addEventListener("change", function () {
+          const selectedOption = this.options[this.selectedIndex];
+          const requiredFields = JSON.parse(
+            selectedOption.dataset.requiredFields || "[]"
+          );
+          additionalFieldsContainer.innerHTML = requiredFields
+            .map(
+              (field) => `
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    ${field.charAt(0).toUpperCase() + field.slice(1)}
+                </label>
+                <input type="text" 
+                       id="${field}" 
+                       name="${field}"
+                       class="mt-1 w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm p-2
+                              bg-white dark:bg-gray-700 
+                              text-gray-900 dark:text-gray-100
+                              focus:border-coffee dark:focus:border-coffee-light 
+                              focus:ring-coffee dark:focus:ring-coffee-light
+                              transition-colors duration-200"
+                       required>
+            </div>
+        `
+            )
+            .join("");
+        });
+      }
+
+      function createPackageCard(package) {
+        const sanitizedName = sanitizeHTML(package.friendlyName);
+        const sanitizedDescription = sanitizeHTML(package.description);
+        const sanitizedCarrier = sanitizeHTML(package.carrier);
+        const sanitizedLogo = sanitizeUrl(carrierLogos[package.carrier] || "");
+        const lastLocation =
+          package.status?.location ||
+          package.events?.[package.events.length - 1]?.location ||
+          package.events?.[0]?.location;
+        const sanitizedLocation = lastLocation
+          ? sanitizeHTML(lastLocation)
+          : null;
+
+        const timeAgo = (() => {
+          const diff =
+            new Date("2024-12-18T22:50:13Z") - new Date(package.lastUpdate);
+          const minutes = Math.floor(diff / 60000);
+          const hours = Math.floor(minutes / 60);
+          const days = Math.floor(hours / 24);
+
+          if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+          if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+          if (minutes > 0)
+            return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+          return "just now";
+        })();
+
+        return `
+        <div class="relative bg-coffee-light/70 dark:bg-gray-700/70 rounded-lg shadow-md min-h-[200px] p-4 cursor-pointer hover:shadow-lg transition-all duration-300 animate-scale-in" 
+             data-package-id="${parseInt(package.id)}">
+            <div class="flex flex-col h-full pb-2">
+                <div class="flex items-start gap-4 mb-auto">
+                    <img src="${sanitizedLogo}" 
+                         alt="${sanitizedCarrier}" 
+                         class="carrier-logo bg-white rounded-lg p-1 w-16 h-16 sm:w-20 sm:h-20 dark:bg-gray-800"
+                         onerror="this.src='default-logo.png'">
+                    <div class="flex-1 min-w-0">
+                        <div class="space-y-1">
+                            <h3 class="font-montserrat font-semibold text-lg break-words dark:text-coffee-light">
+                                ${sanitizedName}
+                            </h3>
+                            <span class="block text-xs text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-clock mr-1"></i>${timeAgo}
+                            </span>
+                        </div>
+                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
+                            ${sanitizedDescription}
+                        </p>
+                        ${
+                          sanitizedLocation
+                            ? `
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 break-words">
+                                <i class="fas fa-location-dot mr-1 align-top"></i>
+                                ${sanitizedLocation}
+                            </p>
+                        `
+                            : ""
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="status-bar h-2 ${
+              statusColors[package.status] || "bg-gray-400"
+            }" 
+                 style="width: ${Math.min(
+                   Math.max(parseInt(package.progress) || 0, 0),
+                   100
+                 )}%">
+            </div>
+        </div>
+    `;
+      }
+
+      function renderPackages() {
+        const container = document.getElementById("packageContainer");
+        const packageCards = packages.map(createPackageCard).join("");
+
+        const addCardHtml = `
+        <div class="relative h-full bg-coffee-light/50 dark:bg-gray-700/50 rounded-lg shadow-md cursor-pointer hover:shadow-lg transition-all duration-300 min-h-[200px]" id="addPackageCard">
+            <div class="flex items-center justify-center h-full">
+                <div class="text-center">
+                    <i class="fas fa-plus-circle text-4xl text-coffee dark:text-coffee-light mb-2"></i>
+                    <p class="text-coffee-dark dark:text-coffee-light font-semibold">Add New Package</p>
+                </div>
+            </div>
+        </div>
+    `;
+        container.innerHTML = addCardHtml + packageCards;
+        const addPackageCard = document.getElementById("addPackageCard");
+        if (addPackageCard) {
+          addPackageCard.addEventListener("click", () => {
+            currentPackage = null;
+            document.getElementById("addPackageForm").reset();
+            showModal(document.getElementById("addPackageModal"));
+          });
+        }
+      }
+
+      const modal = document.getElementById("addPackageModal");
+      const addBtn = document.getElementById("addPackageBtn");
+      const cancelBtn = document.getElementById("cancelAdd");
+      const addPackageForm = document.getElementById("addPackageForm");
+      const addPackageCard = document.getElementById("addPackageCard");
+
+      cancelBtn.addEventListener("click", () => hideModal(modal));
+
+      const themeToggle = document.getElementById("themeToggle");
+      const html = document.documentElement;
+
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        html.classList.add("dark");
+      } else {
+        html.classList.remove("dark");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        html.classList.toggle("dark");
+        if (html.classList.contains("dark")) {
+          localStorage.theme = "dark";
+          themeToggle.innerHTML =
+            '<i class="fas fa-sun mr-2"></i>Toggle Light Mode';
+        } else {
+          localStorage.theme = "light";
+          themeToggle.innerHTML =
+            '<i class="fas fa-moon mr-2"></i>Toggle Dark Mode';
+        }
+      });
+
+      if (html.classList.contains("dark")) {
+        themeToggle.innerHTML =
+          '<i class="fas fa-sun mr-2"></i>Toggle Light Mode';
+      } else {
+        themeToggle.innerHTML =
+          '<i class="fas fa-moon mr-2"></i>Toggle Dark Mode';
+      }
+
+      renderPackages();
+
+      const packageDetailsModal = document.getElementById(
+        "packageDetailsModal"
+      );
+      const deleteConfirmModal = document.getElementById("deleteConfirmModal");
+      const closeDetailsBtn = document.getElementById("closeDetailsBtn");
+      const editPackageBtn = document.getElementById("editPackageBtn");
+      const deletePackageBtn = document.getElementById("deletePackageBtn");
+      const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+      const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+      let currentPackage = null;
+
+      function showPackageDetails(package) {
+        currentPackage = package;
+        const content = document.getElementById("packageDetailsContent");
+        const currentTime = new Date().getTime();
+
+        let currentEventIndex = 0;
+        if (package.events) {
+          currentEventIndex = package.events.findIndex(
+            (event, index, events) => {
+              const eventTime = new Date(event.timestamp).getTime();
+              const nextEvent = events[index + 1];
+              const nextEventTime = nextEvent
+                ? new Date(nextEvent.timestamp).getTime()
+                : 0;
+
+              return (
+                Math.abs(currentTime - eventTime) <
+                  Math.abs(currentTime - nextEventTime) ||
+                index === events.length - 1
+              );
+            }
+          );
+        }
+
+        const sanitizedData = {
+          friendlyName: sanitizeHTML(package.friendlyName),
+          carrier: sanitizeHTML(package.carrier),
+          trackingNumber: sanitizeHTML(package.trackingNumber),
+          status: sanitizeHTML(package.status),
+          description: sanitizeHTML(package.description),
+          events:
+            package.events?.map((event) => ({
+              description: sanitizeHTML(event.description),
+              location: sanitizeHTML(event.location),
+              timestamp: event.timestamp,
+            })) || [],
+        };
+
+        const detailsHTML = `
+        <div class="space-y-3 mb-6">
+            <div>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Name</label>
+                <p class="font-semibold dark:text-white">${
+                  sanitizedData.friendlyName
+                }</p>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Carrier</label>
+                <p class="font-semibold dark:text-white">${sanitizedData.carrier.toUpperCase()}</p>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Tracking Number</label>
+                <p class="font-semibold dark:text-white">${
+                  sanitizedData.trackingNumber || "N/A"
+                }</p>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Status</label>
+                <p class="font-semibold dark:text-white">${package.status}</p>
+            </div>
+            <div>
+                <label class="text-sm text-gray-500 dark:text-gray-400">Description</label>
+                <p class="font-semibold dark:text-white">${
+                  package.description
+                }</p>
+            </div>
+        </div>`;
+
+        const eventsHTML = sanitizedData.events.length
+          ? `
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-semibold mb-4">Event History</h3>
+            <div class="custom-scrollbar max-h-[300px] overflow-y-auto pr-4">
+                <div class="space-y-4 py-4">
+                          ${sanitizedData.events
+                            .map(
+                              (event, index) => `
+                        <div class="flex items-start group">
+                            <div class="flex items-center h-full">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-2.5 h-2.5 rounded-full transition-colors duration-200 
+                                        ${
+                                          index === currentEventIndex
+                                            ? "bg-coffee dark:bg-coffee-light"
+                                            : "bg-gray-400 dark:bg-gray-600 group-hover:bg-coffee/70 dark:group-hover:bg-coffee-light/70"
+                                        }"
+                                    ></div>
+                                    ${
+                                      index !== package.events.length - 1
+                                        ? `
+                                        <div class="w-0.5 h-full bg-gray-200 dark:bg-gray-700"></div>
+                                    `
+                                        : ""
+                                    }
+                                </div>
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 transition-all duration-200
+                                    ${
+                                      index === currentEventIndex
+                                        ? "ring-1 ring-coffee dark:ring-coffee-light shadow-md"
+                                        : "group-hover:bg-gray-100 dark:group-hover:bg-gray-700/70"
+                                    }"
+                                >
+                                    <p class="text-sm font-medium dark:text-gray-200">${
+                                      event.description
+                                    }</p>
+                                    <div class="mt-2 flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>${
+                                          event.location ||
+                                          "Location not available"
+                                        }</span>
+                                        <span>${formatDate(
+                                          event.timestamp
+                                        )}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                            )
+                            .join("")}
+                </div>
+            </div>
+        </div>
+    `
+          : "";
+
+        content.innerHTML = detailsHTML + eventsHTML;
+        showModal(packageDetailsModal);
+
+        if (package.events && package.events.length > 0) {
+          setTimeout(() => {
+            const eventsContainer = content.querySelector(".custom-scrollbar");
+            const currentEvent =
+              eventsContainer.children[0].children[currentEventIndex];
+            const containerHeight = eventsContainer.offsetHeight;
+            const eventTop = currentEvent.offsetTop;
+
+            eventsContainer.scrollTop = Math.max(
+              0,
+              eventTop - containerHeight / 2
+            );
+          }, 100);
+        }
+      }
+
+      function editPackage(package) {
+        currentPackage = package;
+        const modalTitle = modal.querySelector("h2");
+        modalTitle.textContent = "Edit Package";
+        document.getElementById("friendlyName").value = package.friendlyName;
+        const carrierSelect = document.getElementById("carrier");
+        carrierSelect.value = package.carrier;
+
+        const changeEvent = new Event("change", {
+          bubbles: true,
+          cancelable: true,
+        });
+        carrierSelect.dispatchEvent(changeEvent);
+
+        setTimeout(() => {
+          if (package.requiredFields) {
+            Object.entries(package.requiredFields).forEach(
+              ([fieldName, fieldValue]) => {
+                const input = document.querySelector(
+                  `#additionalFields input[name="${fieldName}"]`
+                );
+                if (input) {
+                  input.value = fieldValue;
+                }
+              }
+            );
+          }
+        }, 50);
+
+        const submitBtn = addPackageForm.querySelector('button[type="submit"]');
+        submitBtn.textContent = "Update Package";
+
+        hideModal(packageDetailsModal);
+        showModal(modal);
+      }
+
+      function deletePackage(packageId) {
+        packages = packages.filter((p) => p.id !== packageId);
+        savePackagesToLocalStorage();
+        renderPackages();
+        hideModal(deleteConfirmModal);
+        hideModal(packageDetailsModal);
+        showToast("Package deleted successfully");
+      }
+
+      addPackageForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = {
+          friendlyName: document.getElementById("friendlyName").value,
+          carrier: document.getElementById("carrier").value,
+        };
+
+        const additionalFields = document
+          .getElementById("additionalFields")
+          .querySelectorAll("input");
+        const trackingParams = {};
+        const storedFields = {};
+
+        additionalFields.forEach((field) => {
+          const fieldName = field.name;
+          const fieldValue = field.value;
+          trackingParams[fieldName] = fieldValue;
+          storedFields[fieldName] = fieldValue;
+        });
+
+        try {
+          const trackingInfo = await apiService.getTrackingInfo(
+            formData.carrier,
+            trackingParams
+          );
+          if (!trackingInfo) return;
+
+          if (
+            isDuplicatePackage(
+              trackingInfo.trackingNumber,
+              formData.carrier,
+              currentPackage?.id
+            )
+          ) {
+            showToast("This package has already been added", "error");
+            return;
+          }
+
+          const newPackage = {
+            id: currentPackage
+              ? currentPackage.id
+              : Math.max(0, ...packages.map((p) => p.id)) + 1,
+            friendlyName: formData.friendlyName,
+            carrier: formData.carrier,
+            status: trackingInfo.status.code,
+            description: trackingInfo.status.description,
+            progress: calculateProgress(trackingInfo.status.code),
+            lastUpdate: trackingInfo.status.timestamp,
+            trackingNumber: trackingInfo.trackingNumber,
+            events: trackingInfo.events,
+            requiredFields: storedFields,
+          };
+
+          if (currentPackage) {
+            const index = packages.findIndex((p) => p.id === currentPackage.id);
+            if (index !== -1) {
+              packages[index] = newPackage;
+              showToast("Package updated successfully");
+            }
+          } else {
+            packages.push(newPackage);
+            showToast("Package added successfully");
+          }
+
+          savePackagesToLocalStorage();
+          renderPackages();
+          hideModal(modal);
+          addPackageForm.reset();
+          currentPackage = null;
+        } catch (error) {
+          showToast("Failed to save package", "error");
+        }
+      });
+
+      function calculateProgress(status) {
+        const progressMap = {
+          processing: 25,
+          transit: 50,
+          delivery: 90,
+          delivered: 100,
+        };
+        return progressMap[status] || 0;
+      }
+
+      document
+        .getElementById("packageContainer")
+        .addEventListener("click", (e) => {
+          const packageCard = e.target.closest("[data-package-id]");
+          const addPackageCard = e.target.closest("#addPackageCard");
+
+          if (addPackageCard) {
+            showModal(modal);
+          } else if (packageCard) {
+            const packageId = parseInt(packageCard.dataset.packageId);
+            const package = packages.find((p) => p.id === packageId);
+            if (package) {
+              showPackageDetails(package);
+            }
+          }
+        });
+
+      closeDetailsBtn.addEventListener("click", () =>
+        hideModal(packageDetailsModal)
+      );
+      editPackageBtn.addEventListener("click", () => {
+        if (currentPackage) {
+          editPackage(currentPackage);
+        }
+      });
+
+      deletePackageBtn.addEventListener("click", () =>
+        showModal(deleteConfirmModal)
+      );
+      cancelDeleteBtn.addEventListener("click", () =>
+        hideModal(deleteConfirmModal)
+      );
+      confirmDeleteBtn.addEventListener("click", () => {
+        if (currentPackage) {
+          deletePackage(currentPackage.id);
+        }
+      });
+
+      window.addEventListener("click", (e) => {
+        if (e.target === packageDetailsModal) {
+          packageDetailsModal.classList.add("hidden");
+          packageDetailsModal.classList.remove("flex");
+        } else if (e.target === deleteConfirmModal) {
+          deleteConfirmModal.classList.add("hidden");
+          deleteConfirmModal.classList.remove("flex");
+        }
+      });
+
+      function showToast(message, type = "success") {
+        const container = document.getElementById("toastContainer");
+        const toast = document.createElement("div");
+        let bgClass, iconClass;
+        switch (type) {
+          case "error":
+            bgClass = "bg-red-100 dark:bg-red-900";
+            iconClass = "fa-circle-xmark text-red-500";
+            break;
+          case "info":
+            bgClass = "bg-blue-100 dark:bg-blue-900";
+            iconClass = "fa-circle-info text-blue-500";
+            break;
+          default:
+            bgClass = "bg-green-100 dark:bg-green-900";
+            iconClass = "fa-circle-check text-green-500";
+        }
+
+        toast.className = `toast animate-slide-in ${bgClass}`;
+        toast.innerHTML = `
+        <i class="fas ${iconClass}"></i>
+        <span class="dark:text-gray-100">${sanitizeHTML(message)}</span>
+    `;
+
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.animation = "fadeIn 0.3s ease-out reverse";
+          setTimeout(() => toast.remove(), 250);
+        }, 3000);
+      }
+
+      function showModal(modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        modal.firstElementChild.classList.add("animate-scale-in");
+      }
+
+      function hideModal(modal) {
+        const modalContent = modal.firstElementChild;
+        modalContent.style.animation = "scaleIn 0.3s ease-out reverse";
+        if (modal === document.getElementById("addPackageModal")) {
+          const submitBtn = addPackageForm.querySelector(
+            'button[type="submit"]'
+          );
+          submitBtn.textContent = "Add Package";
+          const modalTitle = modal.querySelector("h2");
+          modalTitle.textContent = "Add New Package";
+        }
+        modal.style.animation = "scaleIn 0.3s ease-out reverse";
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          modal.classList.remove("flex");
+          modal.style.animation = "";
+          modalContent.style.animation = "";
+        }, 200);
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await updateFormFields();
+        await checkForPackageImport();
+        loadPackagesFromLocalStorage();
+        renderPackages();
+
+        if (packages.length > 0) {
+          await recheckPackageStatuses();
+        }
+      });
+
+      document
+        .getElementById("packageDetailsModal")
+        .addEventListener("click", (e) => {
+          if (e.target.closest("#sharePackageBtn")) {
+            sharePackage();
+          }
+        });
+
+      function generateShareLink(package) {
+        const params = {
+          friendlyName: package.friendlyName,
+          carrier: package.carrier,
+          trackingNumber: package.trackingNumber,
+          ...package.requiredFields,
+        };
+
+        const queryString = new URLSearchParams(params).toString();
+        return `${window.location.origin}${
+          window.location.pathname
+        }?import=${btoa(queryString)}`;
+      }
+
+      async function sharePackage() {
+        if (!currentPackage) return;
+        const shareLink = generateShareLink(currentPackage);
+        try {
+          await navigator.clipboard.writeText(shareLink);
+          showToast("Share link copied to clipboard");
+        } catch (err) {
+          console.error("Failed to copy:", err);
+          showToast("Failed to copy share link", "error");
+        }
+      }
+
+      async function checkForPackageImport() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const importData = urlParams.get("import");
+
+        if (importData) {
+          try {
+            const params = new URLSearchParams(atob(importData));
+            const packageData = Object.fromEntries(params);
+
+            Object.keys(packageData).forEach((key) => {
+              packageData[key] = sanitizeHTML(packageData[key]);
+            });
+            const { friendlyName, carrier, ...additionalFields } = packageData;
+            const storedFields = { ...additionalFields };
+            const trackingInfo = await apiService.getTrackingInfo(
+              carrier,
+              additionalFields
+            );
+            if (!trackingInfo) return;
+            if (isDuplicatePackage(trackingInfo.trackingNumber, carrier)) {
+              showToast("This package has already been added", "error");
+
+              window.history.replaceState(
+                {},
+                document.title,
+                window.location.pathname
+              );
+              return;
+            }
+
+            const newPackage = {
+              id: Math.max(0, ...packages.map((p) => p.id)) + 1,
+              friendlyName,
+              carrier,
+              status: trackingInfo.status.code,
+              description: trackingInfo.status.description,
+              progress: calculateProgress(trackingInfo.status.code),
+              lastUpdate: trackingInfo.status.timestamp,
+              trackingNumber: trackingInfo.trackingNumber,
+              events: trackingInfo.events,
+              requiredFields: storedFields,
+            };
+
+            packages.push(newPackage);
+            savePackagesToLocalStorage();
+            renderPackages();
+            showToast("Package imported successfully");
+
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname
+            );
+          } catch (error) {
+            console.error("Failed to import package:", error);
+            showToast("Failed to import package", "error");
+
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.pathname
+            );
+          }
+        }
+      }
+
+      async function recheckPackageStatuses() {
+        showToast("Checking for updates...", "info");
+
+        const updatedPackages = [];
+        let hasUpdates = false;
+
+        for (const package of packages) {
+          try {
+            const trackingParams = {
+              trackingNumber: package.trackingNumber,
+              ...package.requiredFields,
+            };
+            const trackingInfo = await apiService.getTrackingInfo(
+              package.carrier,
+              trackingParams
+            );
+            if (trackingInfo) {
+              const updatedPackage = {
+                ...package,
+                status: trackingInfo.status.code,
+                description: trackingInfo.status.description,
+                progress: calculateProgress(trackingInfo.status.code),
+                lastUpdate: trackingInfo.status.timestamp,
+                events: trackingInfo.events,
+              };
+              if (JSON.stringify(updatedPackage) !== JSON.stringify(package)) {
+                hasUpdates = true;
+              }
+              updatedPackages.push(updatedPackage);
+            } else {
+              updatedPackages.push(package);
+            }
+          } catch (error) {
+            console.error(`Failed to update package ${package.id}:`, error);
+            updatedPackages.push(package);
+          }
+        }
+        if (hasUpdates) {
+          packages = updatedPackages;
+          savePackagesToLocalStorage();
+          renderPackages();
+          showToast("Packages updated successfully");
+        } else {
+          showToast("No updates found");
+        }
+      }
+
+      function getCarrierRequiredFields(carrier) {
+        const carrierOption = document.querySelector(
+          `#carrier option[value="${carrier}"]`
+        );
+        if (carrierOption) {
+          try {
+            return JSON.parse(carrierOption.dataset.requiredFields || "[]");
+          } catch (e) {
+            console.error("Failed to parse required fields:", e);
+            return [];
+          }
+        }
+        return [];
+      }
+      function isDuplicatePackage(trackingNumber, carrier, currentId = null) {
+        return packages.some(
+          (p) =>
+            p.trackingNumber === trackingNumber &&
+            p.carrier === carrier &&
+            p.id !== currentId
+        );
+      }
+    </script>
+    <div class="toast-container" id="toastContainer"></div>
+  </body>
+</html>

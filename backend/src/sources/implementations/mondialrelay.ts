@@ -8,14 +8,14 @@ export class MRSource extends TrackingSource {
     super({
       name: 'mondialrelay',
       icon: 'mondialrelay.png',
-      requiredFields: ['trackingNumber', 'countryCode', 'postalCode'],
+      requiredFields: ['trackingNumber', 'postalCode'],
       baseUrl: 'https://www.mondialrelay.fr/api/',
       apiKey: env.MR_API_KEY
     });
   }
 
   async getTracking(params: Record<string, string>): Promise<ShipmentInfo> {
-    const response = await fetch(`${this.config.baseUrl}tracking?shipment=${params.trackingNumber}&postcode=${params.postalCode}&codePays=${params.countryCode}`, {
+    const response = await fetch(`${this.config.baseUrl}tracking?shipment=${params.trackingNumber}&postcode=${params.postalCode}`, {
       headers: { 'RequestVerificationToken': this.config.apiKey as string }
     });
     
