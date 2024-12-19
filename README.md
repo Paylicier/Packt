@@ -69,7 +69,7 @@ Response:
 ```
 - `/api/get` - Get tracking information
 
-Reponse:
+Response:
 ```json
 {
   "trackingNumber": "string",
