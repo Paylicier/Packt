@@ -69,7 +69,7 @@ Response:
 ```
 - `/api/get` - Get tracking information
 
-Reponse:
+Response:
 ```json
 {
   "trackingNumber": "string",
@@ -103,7 +103,20 @@ Reponse:
 
 ## License 📄
 
-This project is licensed under a certain license (i still need to select one)
+This project is available under a dual-license:
+
+1. **Mozilla Public License 2.0 (MPL-2.0)**
+   - For non-commercial use
+   - For commercial use that complies with our Commercial Terms
+   - [View MPL-2.0 License](LICENSE-MPL-2.0.txt)
+
+2. **Commercial Terms**
+   - Additional terms apply for commercial use
+   - Requires integration with substantial services
+   - Requires attribution and proper documentation
+   - [View Commercial Terms](COMMERCIAL-TERMS.md)
+
+Please review both licenses carefully before using this software. If you have any questions about licensing, please open an issue.
 
 ---
 
