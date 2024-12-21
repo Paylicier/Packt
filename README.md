@@ -1,6 +1,6 @@
 <div align="center">
 <br>
-  <img src="frontend/logo.svg" alt="Packt Logo" width="400"/>
+  <img src="https://raw.githubusercontent.com/Paylicier/Packt/refs/heads/main/frontend/logo.svg" alt="Packt Logo" width="400"/>
   
   # Packt 📦
   
