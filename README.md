@@ -36,6 +36,10 @@
   - No account needed
   - Data persistence
 
+- 📱 **Progressive Web App support**
+  - Easy install
+  - Native-like experience
+
 ## Setup 🚀
 
 ### Backend
