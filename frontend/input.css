@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #a67b5b;
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #744c24;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: #333333;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #a67b5b;
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #744c24;
+  }
+
+  .carrier-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    padding: 8px;
+  }
+
+  .status-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    max-width: 90vw;
+    position: relative;
+    margin: auto;
+    overflow-y: auto;
+  }
+
+  .modal-wrapper {
+    padding: 1rem;
+    box-sizing: border-box;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #addPackageModal,
+  #packageDetailsModal,
+  #deleteConfirmModal {
+    position: fixed;
+    inset: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 50;
+  }
+
+  *:not(i):not(select):not(option) {
+    color: #444444;
+  }
+
+  .dark *:not(i):not(select):not(option) {
+    color: #d4bba7;
+  }
+
+  select,
+  option {
+    color: #444444;
+  }
+
+  .dark select,
+  .dark option,
+  .dark select option {
+    color: #d4bba7;
+    background-color: #374151;
+  }
+
+  .dark select option:checked {
+    background-color: #4b5563;
+  }
+
+  .dark select option:hover {
+    background-color: #4b5563;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleOut {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    to {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  .animate-scale-out {
+    animation: scaleOut 0.3s ease-out;
+  }
+
+  .toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .toast {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .dark .toast {
+    background-color: #1f2937;
+    color: white;
+  }

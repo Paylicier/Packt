@@ -4,15 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Packt</title>
+    <meta name="theme-color" content="#A67B5B" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Packt" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Packt" />
     <meta property="og:url" content="https://packt.pages.dev" />
-    <meta property="og:image" content="https://packt.pages.dev/logo.svg" />
+    <meta
+      property="og:image"
+      content="https://packt.pages.dev/icons/favicon.png"
+    />
     <meta
       property="og:description"
       content="A modern package tracking platform that lets you monitor all your shipments in one place"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="title" content="Packt" />
+    <meta
+      name="description"
+      content="A modern package tracking platform that lets you monitor all your shipments in one place"
+    />
+    <meta
+      name="keywords"
+      content="package, packages, tracking, tracker, asendia, mondialrelay, colis, parcel, laposte, ups, dhl, colissimo, suivi"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="English" />
+    <link href="styles.css" rel="stylesheet" />
+    <meta name="google-site-verification" content="hQ3HIqOji4pTE-q3TDUoSTGJ1nWKl7MPZe_qp59r5qo" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -21,218 +47,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="icon" href="logo.svg" type="image/svg+xml" />
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              coffee: {
-                light: "#D4BBA7",
-                DEFAULT: "#A67B5B",
-                dark: "#744C24",
-              },
-              black: "#444444",
-            },
-            fontFamily: {
-              montserrat: ["Montserrat", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
-
-    <style>
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #a67b5b;
-        border-radius: 4px;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #744c24;
-      }
-
-      .dark .custom-scrollbar::-webkit-scrollbar-track {
-        background: #333333;
-      }
-
-      .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #a67b5b;
-      }
-
-      .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #744c24;
-      }
-
-      .carrier-logo {
-        width: 80px;
-        height: 80px;
-        object-fit: contain;
-        padding: 8px;
-      }
-
-      .status-bar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        border-bottom-left-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-      }
-
-      .modal-content {
-        max-height: 90vh;
-        max-width: 90vw;
-        position: relative;
-        margin: auto;
-        overflow-y: auto;
-      }
-
-      .modal-wrapper {
-        padding: 1rem;
-        box-sizing: border-box;
-        min-height: 100vh;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      #addPackageModal,
-      #packageDetailsModal,
-      #deleteConfirmModal {
-        position: fixed;
-        inset: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-        z-index: 50;
-      }
-
-      *:not(i):not(select):not(option) {
-        color: #444444;
-      }
-
-      .dark *:not(i):not(select):not(option) {
-        color: #d4bba7;
-      }
-
-      select,
-      option {
-        color: #444444;
-      }
-
-      .dark select,
-      .dark option,
-      .dark select option {
-        color: #d4bba7;
-        background-color: #374151;
-      }
-
-      .dark select option:checked {
-        background-color: #4b5563;
-      }
-
-      .dark select option:hover {
-        background-color: #4b5563;
-      }
-
-      @keyframes slideIn {
-        from {
-          transform: translateY(-100%);
-          opacity: 0;
-        }
-
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-
-        to {
-          opacity: 1;
-        }
-      }
-
-      @keyframes scaleIn {
-        from {
-          transform: scale(0.95);
-          opacity: 0;
-        }
-
-        to {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      @keyframes scaleOut {
-        from {
-          transform: scale(1);
-          opacity: 1;
-        }
-
-        to {
-          transform: scale(0.95);
-          opacity: 0;
-        }
-      }
-
-      .animate-slide-in {
-        animation: slideIn 0.3s ease-out;
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 0.3s ease-out;
-      }
-
-      .animate-scale-in {
-        animation: scaleIn 0.3s ease-out;
-      }
-
-      .animate-scale-out {
-        animation: scaleOut 0.3s ease-out;
-      }
-
-      .toast-container {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .toast {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        animation: slideIn 0.3s ease-out;
-      }
-
-      .dark .toast {
-        background-color: #1f2937;
-        color: white;
-      }
-    </style>
+    <link rel="icon" href="icons/favicon.png" />
   </head>
 
   <body
@@ -281,22 +96,34 @@
               owners.
             </p>
           </div>
-          <div class="flex items-center gap-4">
+          <div
+            class="flex flex-col sm:flex-row items-end sm:items-center gap-2 sm:gap-4"
+          >
             <a
               href="https://github.com/Paylicier/packt"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-coffee-dark dark:text-coffee-light hover:opacity-80 transition-opacity"
+              class="text-coffee-dark dark:text-coffee-light hover:opacity-80 transition-opacity whitespace-nowrap"
             >
               <i class="fab fa-github text-2xl"></i>
             </a>
-            <button
+            <div class="flex flex-col xs:flex-row gap-2 xs:gap-4">
+              <button
               id="themeToggle"
-              class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity"
+              class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity whitespace-nowrap"
             >
               <i class="fas fa-moon mr-2"></i>
-              <span class="hidden sm:inline">Theme</span>
+              <span>Theme</span>
             </button>
+              <button
+                id="analyticsToggle"
+                class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity whitespace-nowrap"
+                title="Toggle analytics tracking"
+              >
+                <i class="fas fa-chart-line mr-2"></i>
+                <span>Analytics</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="mt-4 pt-4 border-t border-coffee/20 dark:border-gray-600">
@@ -446,6 +273,7 @@
       const API_BASE_URL = "https://packt.notri1.workers.dev";
 
       const STORAGE_KEY = "packt_packages";
+      const ANALYTICS_PREF_KEY = "packt_analytics_enabled";
 
       function sanitizeHTML(text) {
         if (!text) return "";
@@ -470,6 +298,65 @@
           return parsed.toString();
         } catch {
           return "";
+        }
+      }
+
+      function isAnalyticsEnabled() {
+        const pref = localStorage.getItem(ANALYTICS_PREF_KEY);
+        return pref === null ? true : pref === "true";
+      }
+
+      function setAnalyticsState(enabled) {
+        localStorage.setItem(ANALYTICS_PREF_KEY, enabled.toString());
+        updateAnalyticsToggleButton();
+
+        if (!enabled) {
+          const umamiScript = document.querySelector("script[data-website-id]");
+          if (umamiScript) {
+            umamiScript.remove();
+            delete window.umami;
+          }
+        } else {
+          window.location.reload();
+        }
+      }
+
+      function updateAnalyticsToggleButton() {
+        const analyticsToggle = document.getElementById("analyticsToggle");
+        const isEnabled = isAnalyticsEnabled();
+
+        analyticsToggle.innerHTML = `
+        <i class="fas fa-chart-line mr-2"></i>Analytics ${
+          isEnabled ? "On" : "Off"
+        }
+    `;
+
+        if (isEnabled) {
+          analyticsToggle.classList.remove("bg-gray-500");
+          analyticsToggle.classList.add("bg-coffee");
+        } else {
+          analyticsToggle.classList.remove("bg-coffee");
+          analyticsToggle.classList.add("bg-gray-500");
+        }
+      }
+
+      function initializeAnalytics() {
+        if (isAnalyticsEnabled()) {
+          const script = document.createElement("script");
+          script.async = true;
+          script.defer = true;
+          script.setAttribute(
+            "data-website-id",
+            "9c6e65ea-40b3-4e03-9fe9-412c1c6bd2aa"
+          );
+          script.src = "https://um.paylicier.hackclub.app/script.js";
+          document.head.appendChild(script);
+        }
+      }
+
+      function trackUmamiEvent(eventName, eventData) {
+        if (window.umami && isAnalyticsEnabled()) {
+          umami.track(eventName, eventData);
         }
       }
 
@@ -927,6 +814,7 @@
         hideModal(deleteConfirmModal);
         hideModal(packageDetailsModal);
         showToast("Package deleted successfully");
+        trackUmamiEvent("package_delete");
       }
 
       addPackageForm.addEventListener("submit", async (e) => {
@@ -992,6 +880,9 @@
           } else {
             packages.push(newPackage);
             showToast("Package added successfully");
+            trackUmamiEvent("package_create", {
+              carrier: formData.carrier,
+            });
           }
 
           savePackagesToLocalStorage();
@@ -1159,11 +1050,23 @@
         await checkForPackageImport();
         loadPackagesFromLocalStorage();
         renderPackages();
+        updateAnalyticsToggleButton();
 
         if (packages.length > 0) {
           await recheckPackageStatuses();
         }
+
+        const analyticsToggle = document.getElementById("analyticsToggle");
+
+        analyticsToggle.addEventListener("click", () => {
+          const currentState = isAnalyticsEnabled();
+          setAnalyticsState(!currentState);
+
+          showToast(`Analytics ${!currentState ? "enabled" : "disabled"}`);
+        });
       });
+
+      initializeAnalytics();
 
       document
         .getElementById("packageDetailsModal")
@@ -1246,6 +1149,10 @@
             savePackagesToLocalStorage();
             renderPackages();
             showToast("Package imported successfully");
+
+            trackUmamiEvent("package_import", {
+              carrier: carrier,
+            });
 
             window.history.replaceState(
               {},
@@ -1336,5 +1243,19 @@
       }
     </script>
     <div class="toast-container" id="toastContainer"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js")
+            .then((registration) => {
+              console.log("ServiceWorker registration successful");
+            })
+            .catch((err) => {
+              console.log("ServiceWorker registration failed: ", err);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

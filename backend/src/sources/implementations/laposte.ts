@@ -20,8 +20,7 @@ export class LaposteSource extends TrackingSource {
     const data = await response.json();
 
     if(response.status !== 200) {
-      console.log(data);
-      throw new Error('Failed to fetch shipment information');
+      throw new Error(data.returnMessage ?? 'Failed to fetch shipment information');
     }
       
     return {
