@@ -38,15 +38,6 @@
     padding: 8px;
   }
 
-  .status-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-  }
-
   .modal-content {
     max-height: 90vh;
     max-width: 90vw;

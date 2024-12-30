@@ -38,7 +38,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="English" />
     <link href="styles.css" rel="stylesheet" />
-    <meta name="google-site-verification" content="hQ3HIqOji4pTE-q3TDUoSTGJ1nWKl7MPZe_qp59r5qo" />
+    <meta
+      name="google-site-verification"
+      content="hQ3HIqOji4pTE-q3TDUoSTGJ1nWKl7MPZe_qp59r5qo"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -102,7 +105,7 @@
             <a
               href="https://github.com/Paylicier/packt"
               target="_blank"
-              rel="noopener noreferrer"s
+              rel="noopener noreferrer"
               class="text-coffee-dark dark:text-coffee-light hover:opacity-80 transition-opacity whitespace-nowrap"
               title="View source code on GitHub"
               aria-label="View source code on GitHub"
@@ -111,12 +114,12 @@
             </a>
             <div class="flex flex-col xs:flex-row gap-2 xs:gap-4">
               <button
-              id="themeToggle"
-              class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity whitespace-nowrap"
-            >
-              <i class="fas fa-moon mr-2"></i>
-              <span>Theme</span>
-            </button>
+                id="themeToggle"
+                class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity whitespace-nowrap"
+              >
+                <i class="fas fa-moon mr-2"></i>
+                <span>Theme</span>
+              </button>
               <button
                 id="analyticsToggle"
                 class="px-4 py-2 rounded-lg bg-coffee dark:bg-gray-700 text-white shadow-md hover:opacity-90 transition-opacity whitespace-nowrap"
@@ -227,6 +230,12 @@
                 class="text-red-500 hover:text-red-700 dark:text-red-400"
               >
                 <i class="fas fa-trash"></i>
+              </button>
+              <button
+                id="openTrackingUrlBtn"
+                class="text-green-500 hover:text-green-700 dark:text-green-400"
+              >
+                <i class="fas fa-external-link-alt"></i>
               </button>
               <button
                 id="closeDetailsBtn"
@@ -414,10 +423,11 @@
         });
       })();
       const statusColors = {
-        processing: "bg-yellow-500",
-        transit: "bg-blue-500",
-        delivery: "bg-orange-500",
-        delivered: "bg-green-500",
+        1: "bg-gray-500", // Initial status
+        2: "bg-yellow-500", // Processing
+        3: "bg-blue-500", // In Transit
+        4: "bg-orange-500", // Out for Delivery
+        5: "bg-green-500", // Delivered
       };
       function formatDate(dateString) {
         const date = new Date(dateString);
@@ -488,7 +498,7 @@
 
         const timeAgo = (() => {
           const diff =
-            new Date("2024-12-18T22:50:13Z") - new Date(package.lastUpdate);
+            new Date().getTime() - new Date(package.lastUpdate).getTime();
           const minutes = Math.floor(diff / 60000);
           const hours = Math.floor(minutes / 60);
           const days = Math.floor(hours / 24);
@@ -500,50 +510,61 @@
           return "just now";
         })();
 
-        return `
-        <div class="relative bg-coffee-light/70 dark:bg-gray-700/70 rounded-lg shadow-md min-h-[200px] p-4 cursor-pointer hover:shadow-lg transition-all duration-300 animate-scale-in" 
-             data-package-id="${parseInt(package.id)}">
-            <div class="flex flex-col h-full pb-2">
-                <div class="flex items-start gap-4 mb-auto">
-                    <img src="${sanitizedLogo}" 
-                         alt="${sanitizedCarrier}" 
-                         class="carrier-logo bg-white rounded-lg p-1 w-16 h-16 sm:w-20 sm:h-20 dark:bg-gray-800"
-                         onerror="this.src='default-logo.png'">
-                    <div class="flex-1 min-w-0">
-                        <div class="space-y-1">
-                            <h3 class="font-montserrat font-semibold text-lg break-words dark:text-coffee-light">
-                                ${sanitizedName}
-                            </h3>
-                            <span class="block text-xs text-gray-500 dark:text-gray-400">
-                                <i class="fas fa-clock mr-1"></i>${timeAgo}
-                            </span>
+        const statusBarHtml = (() => {
+          const statusCode = parseFloat(package.status || 0);
+
+          if (!isNaN(statusCode) && statusCode >= 1 && statusCode <= 5) {
+            const width = (statusCode / 5) * 100;
+            return `
+                <div class="absolute bottom-0 left-0 right-0">
+                    <div class="w-full h-2 bg-coffee-light/50 dark:bg-gray-700 rounded-b-full overflow-hidden">
+                        <div class="h-full ${
+                          statusColors[Math.floor(statusCode)] || "bg-gray-500"
+                        } transition-all duration-300 ease-in-out"
+                             style="width: ${width}%">
                         </div>
-                        <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
-                            ${sanitizedDescription}
-                        </p>
-                        ${
-                          sanitizedLocation
-                            ? `
+                    </div>
+                </div>`;
+          }
+          return "";
+        })();
+
+        return `
+    <div class="relative bg-coffee-light/70 dark:bg-gray-700/70 rounded-lg shadow-md min-h-[200px] cursor-pointer hover:shadow-lg transition-all duration-300 animate-scale-in" 
+         data-package-id="${parseInt(package.id)}">
+        <div class="flex flex-col h-full p-4">
+            <div class="flex items-start gap-4 mb-4">
+                <img src="${sanitizedLogo}" 
+                     alt="${sanitizedCarrier}" 
+                     class="carrier-logo bg-white rounded-lg p-1 w-16 h-16 sm:w-20 sm:h-20 dark:bg-gray-800"
+                     onerror="this.src='default-logo.png'">
+                <div class="flex-1 min-w-0">
+                    <div class="space-y-1">
+                        <h3 class="font-montserrat font-semibold text-lg break-words dark:text-coffee-light">
+                            ${sanitizedName}
+                        </h3>
+                        <span class="block text-xs text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-clock mr-1"></i>${timeAgo}
+                        </span>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
+                        ${sanitizedDescription}
+                    </p>
+                    ${
+                      sanitizedLocation
+                        ? `
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 break-words">
                                 <i class="fas fa-location-dot mr-1 align-top"></i>
                                 ${sanitizedLocation}
                             </p>
                         `
-                            : ""
-                        }
-                    </div>
+                        : ""
+                    }
                 </div>
             </div>
-            <div class="status-bar h-2 ${
-              statusColors[package.status] || "bg-gray-400"
-            }" 
-                 style="width: ${Math.min(
-                   Math.max(parseInt(package.progress) || 0, 0),
-                   100
-                 )}%">
-            </div>
         </div>
-    `;
+        ${statusBarHtml}
+    </div>`;
       }
 
       function renderPackages() {
@@ -664,6 +685,14 @@
             })) || [],
         };
 
+        const statusMap = {
+          1: "Pending",
+          2: "Processing",
+          3: "In Transit",
+          4: "Out for Delivery",
+          5: "Delivered",
+        };
+
         const detailsHTML = `
         <div class="space-y-3 mb-6">
             <div>
@@ -684,7 +713,9 @@
             </div>
             <div>
                 <label class="text-sm text-gray-500 dark:text-gray-400">Status</label>
-                <p class="font-semibold dark:text-white">${package.status}</p>
+                <p class="font-semibold dark:text-white">${
+                  statusMap[Math.floor(package.status)]
+                }</p>
             </div>
             <div>
                 <label class="text-sm text-gray-500 dark:text-gray-400">Description</label>
@@ -734,10 +765,7 @@
                                       event.description
                                     }</p>
                                     <div class="mt-2 flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>${
-                                          event.location ||
-                                          "Location not available"
-                                        }</span>
+                                        <span>${event.location || ""}</span>
                                         <span>${formatDate(
                                           event.timestamp
                                         )}</span>
@@ -869,6 +897,7 @@
             progress: calculateProgress(trackingInfo.status.code),
             lastUpdate: trackingInfo.status.timestamp,
             trackingNumber: trackingInfo.trackingNumber,
+            trackingUrl: trackingInfo.trackingUrl,
             events: trackingInfo.events,
             requiredFields: storedFields,
           };
@@ -1076,7 +1105,15 @@
           if (e.target.closest("#sharePackageBtn")) {
             sharePackage();
           }
+          if (e.target.closest("#openTrackingUrlBtn")) {
+            openTrackingUrl();
+          }
         });
+
+      function openTrackingUrl() {
+        if (!currentPackage || !currentPackage.trackingUrl) return;
+        window.open(currentPackage.trackingUrl, "_blank");
+      }
 
       function generateShareLink(package) {
         const params = {
@@ -1143,6 +1180,7 @@
               progress: calculateProgress(trackingInfo.status.code),
               lastUpdate: trackingInfo.status.timestamp,
               trackingNumber: trackingInfo.trackingNumber,
+              trackingUrl: trackingInfo.trackingUrl,
               events: trackingInfo.events,
               requiredFields: storedFields,
             };

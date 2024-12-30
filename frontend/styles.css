@@ -602,12 +602,28 @@ video {
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .relative {
   position: relative;
 }
 
 .inset-0 {
   inset: 0px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.right-0 {
+  right: 0px;
 }
 
 .mx-auto {
@@ -629,10 +645,6 @@ video {
 
 .mb-8 {
   margin-bottom: 2rem;
-}
-
-.mb-auto {
-  margin-bottom: auto;
 }
 
 .ml-4 {
@@ -848,6 +860,10 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -874,6 +890,11 @@ video {
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded-b-full {
+  border-bottom-right-radius: 9999px;
+  border-bottom-left-radius: 9999px;
 }
 
 .border-t {
@@ -1037,10 +1058,6 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 
 .pr-2 {
@@ -1233,6 +1250,10 @@ video {
   transition-duration: 300ms;
 }
 
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -1272,15 +1293,6 @@ video {
   -o-object-fit: contain;
      object-fit: contain;
   padding: 8px;
-}
-
-.status-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
 }
 
 .modal-content {
@@ -1427,7 +1439,6 @@ select,
   color: white;
 }
 
-
 .hover\:bg-coffee-dark:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(116 76 36 / var(--tw-bg-opacity, 1));
@@ -1456,6 +1467,11 @@ select,
 .hover\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-green-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-red-700:hover {
@@ -1597,6 +1613,11 @@ select,
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
 }
 
+.dark\:text-green-400:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(74 222 128 / var(--tw-text-opacity, 1));
+}
+
 .dark\:text-red-400:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity, 1));
@@ -1651,10 +1672,6 @@ select,
 }
 
 @media (min-width: 640px) {
-  .sm\:inline {
-    display: inline;
-  }
-
   .sm\:h-20 {
     height: 5rem;
   }
