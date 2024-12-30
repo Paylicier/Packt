@@ -77,6 +77,7 @@ Response:
 ```json
 {
   "trackingNumber": "string",
+  "trackingUrl": "string",
   "carrier": "string",
   "status": {
     "code": "string",
