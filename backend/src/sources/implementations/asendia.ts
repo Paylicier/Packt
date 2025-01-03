@@ -45,6 +45,11 @@ export class AsendiaSource extends TrackingSource {
         location: data.trackingBrandedDetail[0].eventLocationDetails
           ?.countryName
           ? `${
+              data.trackingBrandedDetail[0].eventLocationDetails.addressLine1
+                ? data.trackingBrandedDetail[0].eventLocationDetails
+                    .addressLine1 + ", "
+                : ""
+            }${
               data.trackingBrandedDetail[0].eventLocationDetails.city
                 ? data.trackingBrandedDetail[0].eventLocationDetails.city + ", "
                 : ""
@@ -54,6 +59,8 @@ export class AsendiaSource extends TrackingSource {
                   " "
                 : ""
             }${data.trackingBrandedDetail[0].eventLocationDetails.countryName}`
+          : data.trackingBrandedDetail[0].eventLocationDetails?.addressLine1
+          ? data.trackingBrandedDetail[0].eventLocationDetails.addressLine1
           : undefined,
       },
       estimatedDelivery: undefined,
@@ -63,6 +70,10 @@ export class AsendiaSource extends TrackingSource {
         timestamp: event.eventOn,
         location: event.eventLocationDetails?.countryName
           ? `${
+              event.eventLocationDetails.addressLine1
+                ? event.eventLocationDetails.addressLine1 + ", "
+                : ""
+            }${
               event.eventLocationDetails.city
                 ? event.eventLocationDetails.city + ", "
                 : ""
@@ -71,6 +82,8 @@ export class AsendiaSource extends TrackingSource {
                 ? event.eventLocationDetails.province + " "
                 : ""
             }${event.eventLocationDetails.countryName}`
+          : event.eventLocationDetails?.addressLine1
+          ? event.eventLocationDetails.addressLine1
           : undefined,
       })),
     };
