@@ -5,7 +5,7 @@ export interface SourceConfig {
   icon?: string;
   requiredFields: string[];
   baseUrl: string;
-  apiKey?: string;
+  apiKey?: string | { key: string; secret: string };
 }
 
 export abstract class TrackingSource {
