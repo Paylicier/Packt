@@ -16,6 +16,7 @@
   - Chronopost
   - Mondial Relay
   - Asendia
+  - FedEx
   - Add your own !
   
 - 🎯 **Easy Tracking**
